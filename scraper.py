@@ -10,7 +10,7 @@ import datetime
 # Change QUERY to your search term of choice. 
 # Examples: 'newsnight', 'from:bbcnewsnight', 'to:bbcnewsnight'
 # Enter your search term in here. Surround it by quotes ' and if you want a store for a hastag include # e.g. '#ddj'
-QUERY = ''
+QUERY = 'diabetes OR #diabetes'
 RESULTS_PER_PAGE = '100'
 LANGUAGE = 'en'
 NUM_PAGES = 1000 
@@ -26,15 +26,11 @@ for page in range(1, NUM_PAGES+1):
             data = {}
             data['id'] = result['id']
             data['text'] = result['text'].replace("&quot;", "'")
-            data['from_user'] = result['from_user']
             data['user_name'] = result['from_user_name']
-            data['location'] = result['geo']
-            data['scraped_at'] = datetime.datetime.today()
             data['date'] = result['created_at']
-            data['image'] =  result['profile_image_url']
             scraperwiki.sqlite.save(["id", "date"], data) 
     except:
-        print 'Oh dear, failed to scrape %s' % base_url
+        print 'Scrape failure %s' % base_url
         break
         
     
